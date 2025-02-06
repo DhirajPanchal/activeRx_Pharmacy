@@ -1,7 +1,7 @@
 services:
 
   eureka-server:
-    image: "activerx-pharmacy/eureka-server:R00"
+    image: "activerx-pharmacy/eureka-server:R01"
     container_name: eureka-server-ms
     ports:
       - "8021:8021"
@@ -19,7 +19,7 @@ services:
 
 
   inventory-service:
-    image: "activerx-pharmacy/inventory-service:R00"
+    image: "activerx-pharmacy/inventory-service:R01"
     container_name: inventory-service-ms
     environment:
       SPRING_APPLICATION_NAME: "inventory-service"
@@ -35,7 +35,7 @@ services:
 
 
   store-service:
-    image: "activerx-pharmacy/store-service:R00"
+    image: "activerx-pharmacy/store-service:R01"
     container_name: store-service-ms
     environment:
       SPRING_APPLICATION_NAME: "store-service"
@@ -50,7 +50,7 @@ services:
       start_period: 10s
 
   gateway-server:
-    image: "activerx-pharmacy/gateway-server:R00"
+    image: "activerx-pharmacy/gateway-server:R01"
     container_name: gateway-server-ms
     ports:
       - "8020:8020"

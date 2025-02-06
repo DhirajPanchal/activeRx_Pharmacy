@@ -103,7 +103,7 @@
                 <version>${jib-maven-plugin.version}</version>
                 <configuration>
                     <to>
-                        <image>activerx-pharmacy/${project.artifactId}:R00</image>
+                        <image>activerx-pharmacy/${project.artifactId}:R01</image>
                     </to>
                 </configuration>
             </plugin>
