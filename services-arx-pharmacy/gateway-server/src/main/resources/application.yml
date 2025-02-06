@@ -1,0 +1,37 @@
+#
+#
+#   G A T E W A Y - S E R V E R
+#
+#
+server:
+  port: 8020
+
+info:
+  app:
+    name: "gateway-server"
+    description: "Active Pharmacy - Gateway Server"
+    version: "1.0.0"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+spring:
+  application:
+    name: gateway-server
+  profiles:
+    active: "default"
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    fetchRegistry: true
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8021/eureka/
