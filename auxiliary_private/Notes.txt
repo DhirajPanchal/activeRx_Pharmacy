@@ -1,3 +1,0 @@
-REPO    : activeRx_Pharmacy
-HTTPS   : https://github.com/DhirajPanchal/activeRx_Pharmacy.git
-LOCATION: D:\CODE\activeRx_Pharmacy
