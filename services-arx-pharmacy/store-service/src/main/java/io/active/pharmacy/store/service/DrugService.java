@@ -18,23 +18,25 @@ public class DrugService {
         this.inventoryFeignClient = inventoryFeignClient;
     }
 
-    public Boolean test() {
-        log.info("[STORE] test()");
+    public DrugCategory getDrugCategory() {
+        //log.info("DrugService . getDrugCategory()");
+
         ResponseEntity<DrugCategory> response = this.inventoryFeignClient.getDrugCategory(Long.valueOf(1));
-        System.out.println(response);
-        System.out.println(response.getBody());
 
         DrugCategory drugCategory = response.getBody();
-        log.info("[STORE] test() drugCategory :: {} ", drugCategory);
-        return true;
+
+        return drugCategory;
     }
 
     public ListResponse<DrugDto> listDrugs(Long categoryId, Long classId, String drugName, int index, int size) {
-        log.info("[STORE] listDrugs()");
+
+        log.info("DrugService . listDrugs()");
+
         ResponseEntity<ListResponse<DrugDto>> response =
                 this.inventoryFeignClient.listDrugs(categoryId, classId, index, size, drugName);
+
         ListResponse<DrugDto> drugList = response.getBody();
-        log.info("[STORE] listDrugs() drugList :: ()", drugList);
+
         return drugList;
     }
 }

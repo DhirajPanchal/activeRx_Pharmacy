@@ -21,10 +21,13 @@ public class CategoryService {
     }
 
     public DrugCategory getDrugCategory(Long id) {
-        log.info("[INVENTORY] CategoryService.getDrugCategory() : {}", id);
+        //log.info("CategoryService.getDrugCategory() : {}", id);
+
         DrugCategory drugCategory = this.repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("DrugCategory", id));
+
         return drugCategory;
+
     }
 
     public DrugCategory addDrugCategory(DrugCategory drugCategory) {
@@ -32,13 +35,14 @@ public class CategoryService {
     }
 
     public List<ListItem> listCategories(String categoryName) {
-        //System.out.println(" SRV listCategories ");
-        log.info("[INVENTORY] CategoryService.listCategories() : {}", categoryName);
+        log.info("CategoryService.listCategories() : {}", categoryName);
+
         return this.repository
                 .findAllByCategoryNameLike(("%" + categoryName + "%"))
                 .stream()
                 .map(entity -> new ListItem(entity.getId(), entity.getCategoryName()))
                 .collect(Collectors.toList());
+
     }
 
 

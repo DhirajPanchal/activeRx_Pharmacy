@@ -2,14 +2,17 @@ package io.active.pharmacy.store.controller;
 
 import io.active.pharmacy.base.dto.DrugDto;
 import io.active.pharmacy.base.dto.ListResponse;
+import io.active.pharmacy.base.entity.DrugCategory;
 import io.active.pharmacy.store.service.DrugService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import static io.active.pharmacy.base.constant.RestConstants.*;
-import static io.active.pharmacy.base.constant.RestConstants.PAGE_SIZE_DEFAULT;
 
 @Slf4j
 @RestController
@@ -22,10 +25,13 @@ public class DrugController {
     }
 
     @GetMapping("test")
-    public ResponseEntity<Boolean> test() {
-        log.info("[STORE] GET:/test");
-        Boolean testResult = this.drugService.test();
-        return ResponseEntity.status(HttpStatus.OK).body(testResult);
+    public ResponseEntity<DrugCategory> test() {
+        // log.info("GET:/test");
+
+        DrugCategory drugCategory = this.drugService.getDrugCategory();
+
+        return ResponseEntity.status(HttpStatus.OK).body(drugCategory);
+
     }
 
 
@@ -38,9 +44,7 @@ public class DrugController {
             @RequestParam(name = "like", defaultValue = "", required = false) String drugName
 
     ) {
-        log.info("[STORE] GET:/listDrugs");
-
-        //System.out.println("POST : /category/" + categoryId + "/class/" + classId + "/drug/list like=/" + drugName);
+        log.info("GET:/listDrugs");
 
         ListResponse<DrugDto> response = this.drugService.listDrugs(categoryId, classId, drugName, index, size);
 

@@ -37,60 +37,76 @@ public class InventoryController {
         this.drugService = drugService;
     }
 
+
     @PostMapping("category")
     public ResponseEntity<DrugCategory> addDrugCategory(@RequestBody DrugCategory payload) {
-        //System.out.println("POST : /category :: " + payload);
-        log.info("[INVENTORY] POST:/category");
+        log.info("POST:/category");
+
         DrugCategory drugCategory = this.categoryService.addDrugCategory(payload);
+
         return ResponseEntity.status(HttpStatus.CREATED).body(drugCategory);
+
     }
+
 
     @GetMapping("category/{categoryId}")
     public ResponseEntity<DrugCategory> getDrugCategory(@PathVariable Long categoryId) {
-        //System.out.println("GET : /category" + categoryId);
-        log.info("[INVENTORY] GET:/category/{}", categoryId);
+        //log.info("GET:/category/{}", categoryId);
+
         DrugCategory drugCategory = this.categoryService.getDrugCategory(categoryId);
+
         return ResponseEntity.status(HttpStatus.OK).body(drugCategory);
+
     }
+
 
     @GetMapping("category/list")
     public ResponseEntity<List<ListItem>> listCategories(
             @RequestParam(name = "like", required = false, defaultValue = "") String categoryName) {
-        //System.out.println("GET : /category/list  like=" + categoryName);
-        log.info("[INVENTORY] GET:/category/list");
+        log.info("GET:/category/list");
+
         List<ListItem> list = this.categoryService.listCategories(categoryName);
 
         return ResponseEntity.status(HttpStatus.OK).body(list);
+
     }
 
 
     @PostMapping("category/{categoryId}/class")
     public ResponseEntity<DrugClass> addDrugClass(@PathVariable Long categoryId,
                                                   @RequestBody DrugClass payload) {
-        //System.out.println("POST : /category/" + categoryId + "/class :: " + payload);
-        log.info("[INVENTORY] POST:/category/{}/class", categoryId);
+        log.info("POST:/category/{}/class", categoryId);
+
         DrugClass drugClass = this.classService.addDrugClass(categoryId, payload);
+
         return ResponseEntity.status(HttpStatus.CREATED).body(drugClass);
+
     }
+
 
     @GetMapping("category/{categoryId}/class/{classId}")
     public ResponseEntity<DrugClass> getDrugClass(@PathVariable Long categoryId,
                                                   @PathVariable Long classId) {
-        //System.out.println("GET : /category/" + categoryId + "/class/" + classId);
-        log.info("[INVENTORY] GET:/category/{}/class/{}", categoryId, classId);
+        log.info("GET:/category/{}/class/{}", categoryId, classId);
+
         DrugClass drugClass = this.classService.getDrugClass(classId);
+
         return ResponseEntity.status(HttpStatus.OK).body(drugClass);
+
     }
+
 
     @GetMapping("category/{categoryId}/class/list")
     public ResponseEntity<List<ListItem>> listClasses(
             @PathVariable Long categoryId,
             @RequestParam(name = "like", required = false, defaultValue = "") String className) {
-        //System.out.println("GET : /category/" + categoryId + "/class/list  like=" + className);
-        log.info("[INVENTORY] GET:/category/{}/class/list", categoryId);
+        log.info("GET:/category/{}/class/list", categoryId);
+
         List<ListItem> list = this.classService.listClasses(categoryId, className);
 
+
         return ResponseEntity.status(HttpStatus.OK).body(list);
+
     }
 
 
@@ -98,19 +114,22 @@ public class InventoryController {
     public ResponseEntity<DrugDto> addDrug(@PathVariable Long categoryId,
                                            @PathVariable Long classId,
                                            @RequestBody Drug payload) {
-        //System.out.println("POST : /category/" + categoryId + "/class/" + classId + " :: " + payload);
-        log.info("[INVENTORY] POST:/category/{}/class/{}/drug", categoryId, classId);
+        log.info("POST:/category/{}/class/{}/drug", categoryId, classId);
+
         DrugDto drugDto = this.drugService.addDrug(categoryId, classId, payload);
+
         return ResponseEntity.status(HttpStatus.CREATED).body(drugDto);
+
     }
 
     @GetMapping("category/{categoryId}/class/{classId}/drug/{drugId}")
     public ResponseEntity<DrugDto> getDrug(@PathVariable Long categoryId,
                                            @PathVariable Long classId,
                                            @PathVariable Long drugId) {
-        //System.out.println("GET : /category/" + categoryId + "/class/" + classId + "/drug/" + drugId);
-        log.info("[INVENTORY] GET:/category/{}/class/{}/drug/{}", categoryId, classId, drugId);
+        log.info("GET:/category/{}/class/{}/drug/{}", categoryId, classId, drugId);
+
         DrugDto drugDto = this.drugService.getDrug(drugId);
+
         return ResponseEntity.status(HttpStatus.OK).body(drugDto);
     }
 
@@ -123,12 +142,12 @@ public class InventoryController {
             @RequestParam(name = PAGE_SIZE, defaultValue = PAGE_SIZE_DEFAULT, required = false) int size,
             @RequestParam(name = "like", defaultValue = "", required = false) String drugName
     ) {
+        log.info("GET:/category/{}/class/{}/drug/list", categoryId, classId);
 
-        //System.out.println("POST : /category/" + categoryId + "/class/" + classId + "/drug/list like=/" + drugName);
-        log.info("[INVENTORY] GET:/category/{}/class/{}/drug/list", categoryId, classId);
         ListResponse<DrugDto> response = this.drugService.listDrugs(categoryId, classId, drugName, index, size);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
 
     }
+
 }

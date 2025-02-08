@@ -15,7 +15,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,29 +35,30 @@ public class DrugService {
     }
 
     public DrugDto getDrug(Long id) {
-
-        log.info("[INVENTORY] DrugService.getDrug() : {}", id);
+        log.info("DrugService.getDrug() : {}", id);
 
         Drug drug = this.drugRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Drug", id));
+
         DrugDto drugDto = EntityDtoUtil.toDrugDto(drug);
+
         return drugDto;
+
     }
 
     public DrugDto addDrug(Long categoryId, Long classId, Drug drug) {
-        //System.out.println("__addDrug");
-        //System.out.println(drug);
-
-        log.info("[INVENTORY] DrugService.addDrug() : {}, {} ", categoryId, classId);
+        log.info("DrugService.addDrug() : {}, {} ", categoryId, classId);
 
         DrugClass drugClass = this.classService.getDrugClass(classId);
         DrugCategory drugCategory = drugClass.getDrugCategory();
         drug.setDrugCategory(drugCategory);
         drug.setDrugClass(drugClass);
         drug = drugRepository.save(drug);
+
         DrugDto drugDto = EntityDtoUtil.toDrugDto(drug);
 
         return drugDto;
+
     }
 
     public ListResponse<DrugDto> listDrugs(Long categoryId,
@@ -66,22 +66,17 @@ public class DrugService {
                                            String drugLabelName,
                                            int index,
                                            int size) {
-        //System.out.println("SRV listDrugs 2");
-
-        log.info("[INVENTORY] DrugService.listDrugs() : {}, {}, {}, {}, {} ", categoryId, classId, drugLabelName, index, size);
+        log.info("DrugService.listDrugs() : {}, {}, {}, {}, {} ", categoryId, classId, drugLabelName, index, size);
 
         Pageable pageable = PageRequest.of(index, size);
         Page<Drug> page = null;
 
         String search = ("%" + drugLabelName + "%");
         if (categoryId > 0 && classId == 0) {
-            //System.out.println("by CAT");
             page = this.drugRepository.findAllByCategory(categoryId, search, pageable);
         } else if (classId > 0) {
-            //System.out.println("by CLS");
             page = this.drugRepository.findAllByClass(classId, search, pageable);
         } else {
-            //System.out.println("by Name");
             page = this.drugRepository.findAllByDrugLabelNameLike(search, pageable);
         }
 

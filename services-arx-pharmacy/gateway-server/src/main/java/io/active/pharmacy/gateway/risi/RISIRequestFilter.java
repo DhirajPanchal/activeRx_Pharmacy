@@ -1,4 +1,4 @@
-package io.active.pharmacy.gateway.trace;
+package io.active.pharmacy.gateway.risi;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,9 +13,9 @@ import reactor.core.publisher.Mono;
 
 @Order(1)
 @Component
-public class RequestTraceFilter implements GlobalFilter {
+public class RISIRequestFilter implements GlobalFilter {
 
-    private static final Logger logger = LoggerFactory.getLogger(RequestTraceFilter.class);
+    private static final Logger logger = LoggerFactory.getLogger(RISIRequestFilter.class);
 
     @Autowired
     FilterUtility filterUtility;
@@ -25,13 +25,13 @@ public class RequestTraceFilter implements GlobalFilter {
         HttpHeaders requestHeaders = exchange.getRequest().getHeaders();
 
         if (isCorrelationIdPresent(requestHeaders)) {
-            String str = "[ G A T E W A Y     ] REQUEST : " + exchange.getRequest().getMethod() + ":" + exchange.getRequest().getURI() +" Trace ID (P) : "+filterUtility.getCorrelationId(requestHeaders);
+            String str = "[ G A T E W A Y     ] REQUEST : " + exchange.getRequest().getMethod() + ":" + exchange.getRequest().getURI() +" RISI(P): "+filterUtility.getCorrelationId(requestHeaders);
 
             System.out.println(str);
         } else {
             String correlationId = generateCorrelationId();
             exchange = filterUtility.setCorrelationId(exchange, correlationId);
-            String str = "[ G A T E W A Y     ] REQUEST : " + exchange.getRequest().getMethod() + ":" + exchange.getRequest().getURI() +" Trace ID (G) : "+correlationId;
+            String str = "[ G A T E W A Y     ] REQUEST : " + exchange.getRequest().getMethod() + ":" + exchange.getRequest().getURI() +" RISI(G): "+correlationId;
 
 
             System.out.println(str);

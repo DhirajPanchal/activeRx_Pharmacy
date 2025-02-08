@@ -1,4 +1,4 @@
-package io.active.pharmacy.gateway.trace;
+package io.active.pharmacy.gateway.risi;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,9 +10,9 @@ import org.springframework.http.HttpHeaders;
 import reactor.core.publisher.Mono;
 
 @Configuration
-public class ResponseTraceFilter {
+public class RISIResponseFilter {
 
-    private static final Logger logger = LoggerFactory.getLogger(ResponseTraceFilter.class);
+    private static final Logger logger = LoggerFactory.getLogger(RISIResponseFilter.class);
 
     @Autowired
     FilterUtility filterUtility;
@@ -23,9 +23,9 @@ public class ResponseTraceFilter {
             return chain.filter(exchange).then(Mono.fromRunnable(() -> {
                 HttpHeaders requestHeaders = exchange.getRequest().getHeaders();
                 String correlationId = filterUtility.getCorrelationId(requestHeaders);
-                String str = "[ G A T E W A Y     ] RESPONSE Trace ID (U) : " + correlationId;
+                String str = "[ G A T E W A Y     ] RESPONSE RISI(U): " + correlationId;
                 System.out.println(str);
-                exchange.getResponse().getHeaders().add(filterUtility.CORRELATION_ID, correlationId);
+                exchange.getResponse().getHeaders().add(filterUtility.REQUEST_INTER_SERVICE_ID, correlationId);
             }));
         };
     }

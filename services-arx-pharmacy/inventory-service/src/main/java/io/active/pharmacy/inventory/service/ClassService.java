@@ -27,17 +27,18 @@ public class ClassService {
     }
 
     public DrugClass getDrugClass(Long id) {
-        log.info("[INVENTORY] ClassService.getDrugClass() : {}", id);
+
+        log.info("ClassService.getDrugClass() : {}", id);
+
         DrugClass drugClass = this.repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("DrugClass", id));
+
         return drugClass;
+
     }
 
     public DrugClass addDrugClass(Long categoryId, DrugClass drugClass) {
-        //System.out.println("__addDrugClass");
-        //System.out.println(drugClass);
-
-        log.info("[INVENTORY] ClassService.addDrugClass() : {}, {}", categoryId, drugClass);
+        log.info("ClassService.addDrugClass() : {}, {}", categoryId, drugClass);
 
         DrugCategory drugCategory = categoryService.getDrugCategory(categoryId);
 
@@ -48,19 +49,13 @@ public class ClassService {
 
 
     public List<ListItem> listClasses(Long categoryId, String className) {
-        //System.out.println(" SRV listCategories ");
-
-        log.info("[INVENTORY] ClassService.listClasses() : {}, {}", categoryId, className);
+        log.info("ClassService.listClasses() : {}, {}", categoryId, className);
 
         List<DrugClass> list = new ArrayList<>();
 
-        //System.out.println(" categoryId :: " + categoryId + ", className :: " + className);
-
         if (categoryId == 0) {
-            //System.out.println("*** NAME Only");
             list = this.repository.findAllByClassNameLike(("%" + className + "%"));
         } else {
-            //System.out.println("*** ID & NAME");
             list = this.repository.findAllByCategoryAndClassName(categoryId, ("%" + className + "%"));
         }
 
