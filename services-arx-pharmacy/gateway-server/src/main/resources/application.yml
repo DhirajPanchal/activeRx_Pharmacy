@@ -1,8 +1,9 @@
 #
 #
-#   G A T E W A Y - S E R V E R
+#   G A T E W A Y - S E R V E R  (8020)
 #
 #
+
 server:
   port: 8020
 
@@ -12,20 +13,39 @@ info:
     description: "Active Pharmacy - Gateway Server"
     version: "1.0.0"
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-  endpoint:
-    health:
-      show-details: always
-
 spring:
   application:
     name: gateway-server
   profiles:
     active: "default"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
+  endpoint:
+    health:
+      show-details: always
+      probes:
+        enabled: true
+    shutdown:
+      enabled: true
+  info:
+    env:
+      enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
+endpoints:
+  shutdown:
+    enabled: true
 
 eureka:
   instance:
@@ -35,3 +55,11 @@ eureka:
     registerWithEureka: true
     serviceUrl:
       defaultZone: http://localhost:8021/eureka/
+
+logging:
+  level:
+    com:
+      activerx-pharmacy:
+        gateway-server: DEBUG
+  pattern:
+    level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"

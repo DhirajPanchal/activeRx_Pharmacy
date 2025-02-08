@@ -1,0 +1,42 @@
+services:
+
+  level-0-service:
+    networks:
+      - activerx-pharmacy-network
+
+  level-1-service:
+    extends:
+      service: level-0-service
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    environment:
+      SPRING_PROFILES_ACTIVE: default
+      JAVA_TOOL_OPTIONS: "-javaagent:/app/libs/opentelemetry-javaagent-2.11.0.jar"
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://tempo:4318
+      OTEL_METRICS_EXPORTER: none
+#      OTEL_LOGS_EXPORTER: none
+
+  level-2-application-base:
+    extends:
+      service: level-1-service
+    depends_on:
+      eureka-server:
+        condition: service_healthy
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8021/eureka/
+      SPRING_DATASOURCE_URL: "jdbc:mysql://host.docker.internal:3306/active_pharmacy_v2"
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: Test12345
+
+  level-2-gateway-base:
+    extends:
+      service: level-1-service
+    depends_on:
+      inventory-service:
+        condition: service_healthy
+      store-service:
+        condition: service_healthy
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8021/eureka/

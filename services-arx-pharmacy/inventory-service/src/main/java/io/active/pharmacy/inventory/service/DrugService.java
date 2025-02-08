@@ -61,37 +61,6 @@ public class DrugService {
         return drugDto;
     }
 
-    public ListResponse<DrugDto> listDrugs1(Long categoryId,
-                                            Long classId,
-                                            String drugLabelName) {
-        //System.out.println("SRV listDrugs");
-
-        log.info("[INVENTORY] DrugService.listDrugs1() : {}, {}, {} ", categoryId, classId, drugLabelName);
-        List<Drug> list = new ArrayList<>();
-        String search = ("%" + drugLabelName + "%");
-        if (categoryId > 0 && classId == 0) {
-            //System.out.println("by CAT");
-            list = this.drugRepository.findAllByCategory(categoryId, search);
-        } else if (classId > 0) {
-            //System.out.println("by CLS");
-            list = this.drugRepository.findAllByClass(classId, search);
-        } else {
-            //System.out.println("by Name");
-            list = this.drugRepository.findAllByDrugLabelNameLike(search);
-        }
-
-        List<DrugDto> dtoList = list
-                .stream()
-                .map(entity -> EntityDtoUtil.toDrugDto(entity))
-                .collect(Collectors.toList());
-
-        ListResponse<DrugDto> response = new ListResponse<>(dtoList, dtoList.size());
-
-        return response;
-
-    }
-
-
     public ListResponse<DrugDto> listDrugs(Long categoryId,
                                            Long classId,
                                            String drugLabelName,
