@@ -1,2 +1,2 @@
 auxiliary_private/
-services-arx-pharmacy/docker-compose/default/.data/
+services-arx-pharmacy/docker-compose/observability/.data/

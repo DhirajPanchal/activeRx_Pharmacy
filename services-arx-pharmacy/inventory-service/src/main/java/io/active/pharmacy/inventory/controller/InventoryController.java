@@ -114,20 +114,6 @@ public class InventoryController {
         return ResponseEntity.status(HttpStatus.OK).body(drugDto);
     }
 
-    //@GetMapping("category/{categoryId}/class/{classId}/drug/list")
-    public ResponseEntity<ListResponse<DrugDto>> listDrugs1(
-            @PathVariable Long categoryId,
-            @PathVariable Long classId,
-            @RequestParam(name = "like", defaultValue = "", required = false) String drugName
-    ) {
-
-        //System.out.println("POST : /category/" + categoryId + "/class/" + classId + "/drug/list like=/" + drugName);
-        //log.info("[INVENTORY] GET:/category/{}/class/{}/drug/list", categoryId, classId);
-        ListResponse<DrugDto> response = this.drugService.listDrugs1(categoryId, classId, drugName);
-
-        return ResponseEntity.status(HttpStatus.OK).body(response);
-
-    }
 
     @GetMapping("category/{categoryId}/class/{classId}/drug/list")
     public ResponseEntity<ListResponse<DrugDto>> listDrugs(

@@ -1,6 +1,6 @@
 #
 #
-#   I N V E N T O R Y   S E R V I C E
+#   I N V E N T O R Y   S E R V I C E  (8030)
 #
 #
 
@@ -43,6 +43,7 @@ management:
       enabled: true
   endpoint:
     health:
+      show-details: always
       probes:
         enabled: true
     shutdown:
@@ -50,6 +51,9 @@ management:
   info:
     env:
       enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}
 
 endpoints:
   shutdown:
@@ -63,3 +67,11 @@ eureka:
     registerWithEureka: true
     serviceUrl:
       defaultZone: http://localhost:8021/eureka/
+
+logging:
+  level:
+    com:
+      activerx-pharmacy:
+        inventory-service: DEBUG
+  pattern:
+    level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"
