@@ -51,9 +51,9 @@ management:
   info:
     env:
       enabled: true
-  metrics:
-    tags:
-      application: ${spring.application.name}
+#  metrics:
+#    tags:
+#      application: ${spring.application.name}
 
 endpoints:
   shutdown:
@@ -73,5 +73,5 @@ logging:
     com:
       activerx-pharmacy:
         inventory-service: DEBUG
-  pattern:
-    level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"
+#  pattern:
+#    level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"

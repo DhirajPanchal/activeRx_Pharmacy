@@ -39,9 +39,9 @@ management:
   info:
     env:
       enabled: true
-  metrics:
-    tags:
-      application: ${spring.application.name}
+#  metrics:
+#    tags:
+#      application: ${spring.application.name}
 
 endpoints:
   shutdown:
@@ -61,5 +61,5 @@ logging:
     com:
       activerx-pharmacy:
         eureka-server: DEBUG
-  pattern:
-    level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"
+#  pattern:
+#    level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"
