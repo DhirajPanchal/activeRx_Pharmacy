@@ -23,6 +23,11 @@ public class DrugService {
 
         ResponseEntity<DrugCategory> response = this.inventoryFeignClient.getDrugCategory(Long.valueOf(1));
 
+
+        if(response==null){
+            return null;
+        }
+
         DrugCategory drugCategory = response.getBody();
 
         return drugCategory;

@@ -9,6 +9,7 @@ import io.active.pharmacy.base.entity.DrugClass;
 import io.active.pharmacy.inventory.service.CategoryService;
 import io.active.pharmacy.inventory.service.ClassService;
 import io.active.pharmacy.inventory.service.DrugService;
+import io.github.resilience4j.retry.annotation.Retry;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,15 +49,21 @@ public class InventoryController {
 
     }
 
-
+    @Retry(name = "getDrugCategory", fallbackMethod = "getDrugCategoryFallback")
     @GetMapping("category/{categoryId}")
     public ResponseEntity<DrugCategory> getDrugCategory(@PathVariable Long categoryId) {
-        //log.info("GET:/category/{}", categoryId);
+        log.info("GET:/category/{}", categoryId);
 
         DrugCategory drugCategory = this.categoryService.getDrugCategory(categoryId);
 
         return ResponseEntity.status(HttpStatus.OK).body(drugCategory);
 
+    }
+
+    public ResponseEntity<DrugCategory> getDrugCategoryFallback(Long categoryId, Throwable throwable) {
+        log.info("<FALLBACK> GET:/category/{}", categoryId);
+        DrugCategory drugCategory = new DrugCategory(0L, "DUMMY");
+        return ResponseEntity.status(HttpStatus.OK).body(drugCategory);
     }
 
 

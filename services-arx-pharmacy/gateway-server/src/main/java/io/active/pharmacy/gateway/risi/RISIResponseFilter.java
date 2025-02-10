@@ -24,8 +24,19 @@ public class RISIResponseFilter {
                 HttpHeaders requestHeaders = exchange.getRequest().getHeaders();
                 String correlationId = filterUtility.getCorrelationId(requestHeaders);
                 String str = "[ G A T E W A Y     ] RESPONSE RISI(U): " + correlationId;
+                //System.out.println(str);
+                //exchange.getResponse().getHeaders().add(filterUtility.REQUEST_INTER_SERVICE_ID, correlationId);
+
+
+
+                if(!(exchange.getResponse().getHeaders().containsKey(filterUtility.REQUEST_INTER_SERVICE_ID))) {
+                    str += "( U )";
+                    //logger.debug("Updated the correlation id to the outbound headers: {}", correlationId);
+                    exchange.getResponse().getHeaders().add(filterUtility.REQUEST_INTER_SERVICE_ID, correlationId);
+                }
+
                 System.out.println(str);
-                exchange.getResponse().getHeaders().add(filterUtility.REQUEST_INTER_SERVICE_ID, correlationId);
+
             }));
         };
     }
