@@ -15,3 +15,7 @@ docker compose down
 *** Redis
 (Resilience/RateLimitter)
 docker run -p 6379:6379 --name arx-gw-ratelimiter-redis -d redis
+
+Keycloak
+Docker
+docker run -d -p [PORT]:8080 -e KC_BOOTSTRAP_ADMIN_USERNAME=admin -e KC_BOOTSTRAP_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:26.1.2 start-dev
