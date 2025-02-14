@@ -27,17 +27,23 @@ spring:
       httpclient:
         connect-timeout: 1000
         response-timeout: 2s
+  r2dbc:
+    url: "r2dbc:mysql://localhost:3306/active_pharmacy_v2"
+    username: root
+    password: Test12345
+# R02 : Resilience.RateLimiter
 #  data:
 #    redis:
 #      connect-timeout: 2s
 #      host: localhost
 #      port: 6379
 #      timeout: 1s
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          jwk-set-uri: "http://localhost:8016/realms/master/protocol/openid-connect/certs"
+# R03 : Security Keycloak
+#  security:
+#    oauth2:
+#      resourceserver:
+#        jwt:
+#          jwk-set-uri: "http://localhost:8016/realms/master/protocol/openid-connect/certs"
 
 management:
   endpoints:
@@ -59,6 +65,7 @@ management:
   info:
     env:
       enabled: true
+# R01 : Observability
 #  metrics:
 #    tags:
 #      application: ${spring.application.name}
@@ -81,6 +88,7 @@ logging:
     com:
       activerx-pharmacy:
         gateway-server: DEBUG
+# R01 : Observability
 #  pattern:
 #    level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"
 
@@ -91,3 +99,8 @@ resilience4j.circuitbreaker:
       permittedNumberOfCallsInHalfOpenState: 2
       failureRateThreshold: 50
       waitDurationInOpenState: 10000
+
+jwt:
+  token-expiration-seconds: 3600
+  secret-key: "Vr3snA4K8Mfihp4twIHdxc0Vym+v7e7jlBgyZRBjZMM1yjKOvs24++a3AxBLrrCQ9KmXRfhxcl2KlNGmblD+eA=="
+
