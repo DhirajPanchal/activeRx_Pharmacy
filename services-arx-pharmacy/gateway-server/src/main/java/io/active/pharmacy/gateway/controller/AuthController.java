@@ -1,7 +1,6 @@
 package io.active.pharmacy.gateway.controller;
 
 
-
 import io.active.pharmacy.base.dto.LoginRequest;
 import io.active.pharmacy.base.dto.LoginResponse;
 import io.active.pharmacy.base.dto.UserDto;
@@ -25,6 +24,7 @@ public class AuthController {
 
     private final AuthService service;
 
+
     @GetMapping
     public String info() {
         return "Gateway Server - Auth";
@@ -33,24 +33,32 @@ public class AuthController {
 
     @PostMapping("registration")
     public ResponseEntity<Mono<User>> register(@RequestBody(required = true) @Valid UserDto userDto) {
-        log.info("_register ");
-        System.out.println(userDto);
+
+        System.out.println("                      [ GATEWAY ] POST : /api/v1/auth/registration");
 
         Mono<User> user = this.service.register(userDto);
 
         return new ResponseEntity<>(user, HttpStatus.CREATED);
+
     }
+
 
     @PostMapping("login")
     Mono<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
 
+        System.out.println("                      [ GATEWAY ] POST : /api/v1/auth/login");
+
         Mono<LoginResponse> response = this.service.login(loginRequest);
 
         return response;
+
     }
+
 
     @GetMapping("profile")
     Mono<UserDto> getProfile(Authentication authentication) {
+
+        System.out.println("                      [ GATEWAY ] GET : /api/v1/auth/profile");
 
         Mono<UserDto> response = this.service.profile(authentication);
 

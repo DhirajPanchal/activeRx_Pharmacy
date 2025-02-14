@@ -1,7 +1,7 @@
 services:
 
   eureka-server:
-    image: "activerx-pharmacy/eureka-server:R01"
+    image: "activerx-pharmacy/eureka-server:R04"
     container_name: eureka-server-ms
     ports:
       - "8021:8021"
@@ -19,7 +19,7 @@ services:
 
 
   inventory-service:
-    image: "activerx-pharmacy/inventory-service:R01"
+    image: "activerx-pharmacy/inventory-service:R04"
     container_name: inventory-service-ms
     environment:
       SPRING_APPLICATION_NAME: "inventory-service"
@@ -35,7 +35,7 @@ services:
 
 
   store-service:
-    image: "activerx-pharmacy/store-service:R01"
+    image: "activerx-pharmacy/store-service:R04"
     container_name: store-service-ms
     environment:
       SPRING_APPLICATION_NAME: "store-service"
@@ -50,7 +50,7 @@ services:
       start_period: 10s
 
   gateway-server:
-    image: "activerx-pharmacy/gateway-server:R01"
+    image: "activerx-pharmacy/gateway-server:R04"
     container_name: gateway-server-ms
     ports:
       - "8020:8020"
@@ -58,7 +58,7 @@ services:
       SPRING_APPLICATION_NAME: "gateway-server"
     extends:
       file: common-config.yml
-      service: level-2-gateway-base
+      service: level-3-gateway-base
     healthcheck:
       test: "curl --fail --silent localhost:8020/actuator/health/readiness | grep UP || exit 1"
       interval: 10s

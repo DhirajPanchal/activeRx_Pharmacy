@@ -24,11 +24,12 @@ public class DrugController {
         this.drugService = drugService;
     }
 
-    @GetMapping("test")
-    public ResponseEntity<DrugCategory> test() {
-        // log.info("GET:/test");
+    @GetMapping("category/{categoryId}")
+    public ResponseEntity<DrugCategory> getCategory(@PathVariable Long categoryId) {
 
-        DrugCategory drugCategory = this.drugService.getDrugCategory();
+        System.out.println("                      [ STORE ] GET : /category/"+categoryId);
+
+        DrugCategory drugCategory = this.drugService.getDrugCategory(categoryId);
 
         return ResponseEntity.status(HttpStatus.OK).body(drugCategory);
 
@@ -44,7 +45,9 @@ public class DrugController {
             @RequestParam(name = "like", defaultValue = "", required = false) String drugName
 
     ) {
-        log.info("GET:/listDrugs");
+        //log.info("GET:/listDrugs");
+
+        System.out.println("                      [ STORE ] GET : category/"+categoryId+"/class/"+classId+"/drug/list");
 
         ListResponse<DrugDto> response = this.drugService.listDrugs(categoryId, classId, drugName, index, size);
 

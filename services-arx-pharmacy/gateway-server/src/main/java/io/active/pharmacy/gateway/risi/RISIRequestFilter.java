@@ -25,16 +25,19 @@ public class RISIRequestFilter implements GlobalFilter {
         HttpHeaders requestHeaders = exchange.getRequest().getHeaders();
 
         if (isCorrelationIdPresent(requestHeaders)) {
-            String str = "[ G A T E W A Y     ] REQUEST : " + exchange.getRequest().getMethod() + ":" + exchange.getRequest().getURI() +" RISI(P): "+filterUtility.getCorrelationId(requestHeaders);
+
+            String str = "[ G A T E W A Y     ] REQUEST : " + exchange.getRequest().getMethod() + ":" + exchange.getRequest().getURI() + " RISI(P): " + filterUtility.getCorrelationId(requestHeaders);
 
             System.out.println(str);
+
         } else {
+
             String correlationId = generateCorrelationId();
             exchange = filterUtility.setCorrelationId(exchange, correlationId);
-            String str = "[ G A T E W A Y     ] REQUEST : " + exchange.getRequest().getMethod() + ":" + exchange.getRequest().getURI() +" RISI(G): "+correlationId;
-
+            String str = "[ G A T E W A Y     ] REQUEST : " + exchange.getRequest().getMethod() + ":" + exchange.getRequest().getURI() + " RISI(G): " + correlationId;
 
             System.out.println(str);
+
         }
         return chain.filter(exchange);
     }

@@ -23,7 +23,6 @@ import static io.active.pharmacy.base.constant.RestConstants.*;
 @RestController
 public class InventoryController {
 
-
     private final CategoryService categoryService;
 
     private final ClassService classService;
@@ -41,7 +40,8 @@ public class InventoryController {
 
     @PostMapping("category")
     public ResponseEntity<DrugCategory> addDrugCategory(@RequestBody DrugCategory payload) {
-        log.info("POST:/category");
+
+        System.out.println("                      [ INVENTORY ] POST : /category");
 
         DrugCategory drugCategory = this.categoryService.addDrugCategory(payload);
 
@@ -49,10 +49,12 @@ public class InventoryController {
 
     }
 
+
     @Retry(name = "getDrugCategory", fallbackMethod = "getDrugCategoryFallback")
     @GetMapping("category/{categoryId}")
     public ResponseEntity<DrugCategory> getDrugCategory(@PathVariable Long categoryId) {
-        log.info("GET:/category/{}", categoryId);
+
+        System.out.println("                      [ INVENTORY ] GET : /category/" + categoryId);
 
         DrugCategory drugCategory = this.categoryService.getDrugCategory(categoryId);
 
@@ -60,17 +62,23 @@ public class InventoryController {
 
     }
 
+
     public ResponseEntity<DrugCategory> getDrugCategoryFallback(Long categoryId, Throwable throwable) {
-        log.info("<FALLBACK> GET:/category/{}", categoryId);
+
+        System.out.println("                      [ INVENTORY ] <FALLBACK> GET : /category/" + categoryId);
+
         DrugCategory drugCategory = new DrugCategory(0L, "DUMMY");
+
         return ResponseEntity.status(HttpStatus.OK).body(drugCategory);
+
     }
 
 
     @GetMapping("category/list")
     public ResponseEntity<List<ListItem>> listCategories(
             @RequestParam(name = "like", required = false, defaultValue = "") String categoryName) {
-        log.info("GET:/category/list");
+
+        System.out.println("                      [ INVENTORY ] GET : /category/list");
 
         List<ListItem> list = this.categoryService.listCategories(categoryName);
 
@@ -82,7 +90,8 @@ public class InventoryController {
     @PostMapping("category/{categoryId}/class")
     public ResponseEntity<DrugClass> addDrugClass(@PathVariable Long categoryId,
                                                   @RequestBody DrugClass payload) {
-        log.info("POST:/category/{}/class", categoryId);
+
+        System.out.println("                      [ INVENTORY ] POST : /category/" + categoryId + "/class");
 
         DrugClass drugClass = this.classService.addDrugClass(categoryId, payload);
 
@@ -94,7 +103,8 @@ public class InventoryController {
     @GetMapping("category/{categoryId}/class/{classId}")
     public ResponseEntity<DrugClass> getDrugClass(@PathVariable Long categoryId,
                                                   @PathVariable Long classId) {
-        log.info("GET:/category/{}/class/{}", categoryId, classId);
+
+        System.out.println("                      [ INVENTORY ] GET : /category/" + categoryId + "/class/" + classId);
 
         DrugClass drugClass = this.classService.getDrugClass(classId);
 
@@ -107,10 +117,10 @@ public class InventoryController {
     public ResponseEntity<List<ListItem>> listClasses(
             @PathVariable Long categoryId,
             @RequestParam(name = "like", required = false, defaultValue = "") String className) {
-        log.info("GET:/category/{}/class/list", categoryId);
+
+        System.out.println("                      [ INVENTORY ] GET : /category/" + categoryId + "/class/list");
 
         List<ListItem> list = this.classService.listClasses(categoryId, className);
-
 
         return ResponseEntity.status(HttpStatus.OK).body(list);
 
@@ -121,7 +131,8 @@ public class InventoryController {
     public ResponseEntity<DrugDto> addDrug(@PathVariable Long categoryId,
                                            @PathVariable Long classId,
                                            @RequestBody Drug payload) {
-        log.info("POST:/category/{}/class/{}/drug", categoryId, classId);
+
+        System.out.println("                      [ INVENTORY ] POST : /category/" + categoryId + "/class/" + classId + "/drug");
 
         DrugDto drugDto = this.drugService.addDrug(categoryId, classId, payload);
 
@@ -133,7 +144,8 @@ public class InventoryController {
     public ResponseEntity<DrugDto> getDrug(@PathVariable Long categoryId,
                                            @PathVariable Long classId,
                                            @PathVariable Long drugId) {
-        log.info("GET:/category/{}/class/{}/drug/{}", categoryId, classId, drugId);
+        //log.info("GET:/category/{}/class/{}/drug/{}", categoryId, classId, drugId);
+        System.out.println("                      [ INVENTORY ] GET : /category/" + categoryId + "/class/" + classId + "/drug/"+drugId);
 
         DrugDto drugDto = this.drugService.getDrug(drugId);
 
@@ -149,7 +161,9 @@ public class InventoryController {
             @RequestParam(name = PAGE_SIZE, defaultValue = PAGE_SIZE_DEFAULT, required = false) int size,
             @RequestParam(name = "like", defaultValue = "", required = false) String drugName
     ) {
-        log.info("GET:/category/{}/class/{}/drug/list", categoryId, classId);
+        //log.info("GET:/category/{}/class/{}/drug/list", categoryId, classId);
+
+        System.out.println("                      [ INVENTORY ] GET : /category/" + categoryId + "/class/" + classId + "/drug/list");
 
         ListResponse<DrugDto> response = this.drugService.listDrugs(categoryId, classId, drugName, index, size);
 

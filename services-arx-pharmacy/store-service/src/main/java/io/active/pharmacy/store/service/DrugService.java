@@ -18,11 +18,10 @@ public class DrugService {
         this.inventoryFeignClient = inventoryFeignClient;
     }
 
-    public DrugCategory getDrugCategory() {
+    public DrugCategory getDrugCategory(Long categoryId) {
         //log.info("DrugService . getDrugCategory()");
 
-        ResponseEntity<DrugCategory> response = this.inventoryFeignClient.getDrugCategory(Long.valueOf(1));
-
+        ResponseEntity<DrugCategory> response = this.inventoryFeignClient.getDrugCategory(categoryId);
 
         if(response==null){
             return null;

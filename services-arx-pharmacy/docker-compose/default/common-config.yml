@@ -25,14 +25,15 @@ services:
       SPRING_DATASOURCE_URL: "jdbc:mysql://host.docker.internal:3306/active_pharmacy_v2"
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: Test12345
+      SPRING_R2DBC_URL: "r2dbc:mysql://host.docker.internal:3306/active_pharmacy_v2"
+      SPRING_R2DBC_USERNAME: root
+      SPRING_R2DBC_PASSWORD: Test12345
 
-  level-2-gateway-base:
+  level-3-gateway-base:
     extends:
-      service: level-1-service
+      service: level-2-application-base
     depends_on:
       inventory-service:
         condition: service_healthy
       store-service:
         condition: service_healthy
-    environment:
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8021/eureka/

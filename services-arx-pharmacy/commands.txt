@@ -8,7 +8,7 @@ mvn compile jib:dockerBuild
 
 docker ps
 docker images
-docker compose up
+docker compose up -d
 docker compose down
 
 

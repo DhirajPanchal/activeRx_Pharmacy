@@ -14,13 +14,15 @@ public class InventoryFeignFallback implements InventoryFeignClient {
 
     @Override
     public ResponseEntity<DrugCategory> getDrugCategory(Long categoryId) {
-        log.warn("InventoryFeignFallback . getDrugCategory () {} ", categoryId);
+        //log.warn("InventoryFeignFallback . getDrugCategory () {} ", categoryId);
+        System.out.println("                      [ STORE ] <FALLBACK> GET : /category/"+categoryId);
         return null;
     }
 
     @Override
     public ResponseEntity<ListResponse<DrugDto>> listDrugs(Long categoryId, Long classId, int index, int size, String drugName) {
-        log.warn("InventoryFeignFallback . listDrugs () ");
+        //log.warn("InventoryFeignFallback . listDrugs () ");
+        System.out.println("                      [ STORE ] <FALLBACK> GET : category/"+categoryId+"/class/"+classId+"/drug/list");
         return null;
     }
 }

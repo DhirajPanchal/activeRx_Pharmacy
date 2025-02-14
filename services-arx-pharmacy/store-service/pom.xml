@@ -20,7 +20,7 @@
         <java.version>17</java.version>
         <spring-cloud.version>2024.0.0</spring-cloud.version>
         <jib-maven-plugin.version>3.4.2</jib-maven-plugin.version>
-        <otelVersion>2.11.0</otelVersion>
+<!--        <otelVersion>2.11.0</otelVersion>-->
     </properties>
 
     <dependencies>
@@ -122,7 +122,7 @@
                 <version>${jib-maven-plugin.version}</version>
                 <configuration>
                     <to>
-                        <image>activerx-pharmacy/${project.artifactId}:R01</image>
+                        <image>activerx-pharmacy/${project.artifactId}:R04</image>
                     </to>
                 </configuration>
             </plugin>
