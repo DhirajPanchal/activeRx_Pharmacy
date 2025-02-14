@@ -1,0 +1,46 @@
+services:
+
+  level-0-service:
+    networks:
+      - activerx-pharmacy-network
+
+  database-base-service:
+    extends:
+      service: level-0-service
+    image: mysql
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 10s
+      retries: 10
+      interval: 10s
+      start_period: 10s
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+
+  level-1-service:
+    extends:
+      service: level-0-service
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    environment:
+      SPRING_PROFILES_ACTIVE: default
+
+  level-2-application-base:
+    extends:
+      service: level-1-service
+    depends_on:
+      eureka-server:
+        condition: service_healthy
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8021/eureka/
+
+  level-3-gateway-base:
+    extends:
+      service: level-2-application-base
+    depends_on:
+      inventory-service:
+        condition: service_healthy
+      store-service:
+        condition: service_healthy
