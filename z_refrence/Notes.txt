@@ -1,0 +1,49 @@
+GIT
+REPO    : activeRx_Pharmacy
+HTTPS   : https://github.com/DhirajPanchal/activeRx_Pharmacy.git
+LOCATION: D:\CODE\activeRx_Pharmacy
+
+KEYCLOAK  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+LOCAL >
+C:\programs\keycloak
+START
+bin\kc.bat start-dev
+http://localhost:8016/
+Listening on: http://0.0.0.0:8016.
+Management interface listening on http://0.0.0.0:9000.
+
+DOCKER >
+docker run -d -p 8016:8080 -e KC_BOOTSTRAP_ADMIN_USERNAME=admin -e KC_BOOTSTRAP_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:26.1.2 start-dev
+
+admin/admin
+
+Client Credentials Grand Type:::::
+
+Client:
+
+  BE to BE
+
+  Client Type: OpenID Connect
+  Client Id: activerx-pharmacy-partner-logistics
+  Name: Activerx Pharmacy : Partner Logistics
+  Description:  Partner Logestics Access for Shipping Update
+  Client Authentication: On
+  Authorization: Off
+  Authentication Flow:
+    - Service Accounts Roles
+  Root Url:
+  Home Url:
+  ---
+  Credentials::
+  Client Authenticator: Client Id and Secret
+  Client Secret:VQvchIUOjpCYfeV4yMQ0GkSdM1HEJ2We
+
+  UI to BE
+
+  Client Id: activerx-pharmacy-ui-console
+  Name: Activerx Pharmacy UI Console
+  Description: Authorization Code Grant Type for UI App
+  ---
+  Credentials::
+  Client Authenticator: Client Id and Secret
+  Client Secret: C2YbxxXHORoPxGh0fYYbjFSMqf2W4NUq
