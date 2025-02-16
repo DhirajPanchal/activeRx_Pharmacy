@@ -7,9 +7,19 @@ docker system prune
 mvn compile jib:dockerBuild
 
 docker ps
+docker ps -q (only IDs)
 docker images
 docker compose up -d
 docker compose down
+
+-- Remove stoped container
+docker container prune
+
+Stop all the containers
+docker stop $(docker ps -q)
+Remove all the containers
+docker rm $(docker ps -a -q)
+
 
 
 *** Redis
@@ -19,3 +29,26 @@ docker run -p 6379:6379 --name arx-gw-ratelimiter-redis -d redis
 Keycloak
 Docker
 docker run -d -p [PORT]:8080 -e KC_BOOTSTRAP_ADMIN_USERNAME=admin -e KC_BOOTSTRAP_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:26.1.2 start-dev
+
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+ K U B E R N E T E R
+
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+kubectl apply -f file-name
+
+kubectl delete -f file-name
+
+
+kubectl get configmaps
+kubectl get secrets
+kubectl get persistentvolume
+kubectl get deployments
+kubectl get services
+kubectl get pods
+
+
+kubectl port-forward mysql-ff94f778-6r2wm 3308:3306
+
+
