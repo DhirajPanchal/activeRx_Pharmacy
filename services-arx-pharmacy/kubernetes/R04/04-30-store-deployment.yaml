@@ -59,7 +59,7 @@ metadata:
 spec:
   selector:
     app: store-service
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - protocol: TCP
       port: 8031
