@@ -1,0 +1,18 @@
+
+// List all helm installation
+helm ls
+
+helm env
+
+// Install helm charts
+helm install
+
+// Uninstall helm charts
+helm uninstall [chart-name]
+
+
+
+helm create [arx-common]
+
+// Build chart (dependencies)
+helm dependencies build

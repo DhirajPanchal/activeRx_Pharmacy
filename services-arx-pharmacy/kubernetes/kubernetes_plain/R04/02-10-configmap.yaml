@@ -9,9 +9,9 @@ data:
   STORE_APPLICATION_NAME: "store-service"
   GATEWAY_APPLICATION_NAME: "gateway-server"
   EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eureka-server:8021/eureka/"
-  MYSQL_DATABASE_NAME: "active_pharmacy_v2"
-  MYSQL_USER: root
-  MYSQL_PASSWORD: root
+#  MYSQL_DATABASE_NAME: "active_pharmacy_v2"
+#  MYSQL_USER: root
+#  MYSQL_PASSWORD: root
   MYSQL_ROOT_PASSWORD: root
   SPRING_DATASOURCE_URL: "jdbc:mysql://mysql-service:3306/active_pharmacy_v2"
   SPRING_DATASOURCE_USERNAME: root

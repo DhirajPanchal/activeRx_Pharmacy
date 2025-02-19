@@ -1,0 +1,21 @@
+
+// Add bitnami
+helm repo add bitnami https://charts.bitnami.com/bitnami
+
+// Install Wordpress helm charts
+helm install happy-panda bitnami/wordpress
+
+export SERVICE_IP=$(kubectl get svc --namespace default happy-panda-wordpress --template "{{ range (index .status.loadBalancer.ingress 0) }}{{ . }}{{ end }}")
+echo "WordPress URL: http://$SERVICE_IP/"
+echo "WordPress Admin URL: http://$SERVICE_IP/admin"
+
+http://localhost
+http://localhost/admin
+user
+pwd (refer configmap) cOsKdo8VRr
+
+// List all helm installation
+helm ls
+
+// Uninstall helm charts
+helm uninstall [chart-name]

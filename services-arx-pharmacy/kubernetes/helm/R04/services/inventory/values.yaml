@@ -1,0 +1,24 @@
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+deploymentName: inventory-service-deployment
+serviceName: inventory-service
+appLabel: inventory-service
+appName: inventory-service
+
+replicaCount: 1
+
+image:
+  repository: activerx-pharmacy/inventory-service
+  tag: R04
+
+containerPort: 8030
+
+service:
+  type: ClusterIP
+  port: 8030
+  targetPort: 8030
+
+appname_enabled: true
+profile_enabled: true
+eureka_enabled: true

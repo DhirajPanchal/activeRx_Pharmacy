@@ -1,0 +1,16 @@
+{{- define "common.configmap" -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.global.configMapName }}
+data:
+  SPRING_PROFILES_ACTIVE: {{ .Values.global.activeProfile }}
+  EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: {{ .Values.global.eurekaServerURL }}
+  MYSQL_ROOT_PASSWORD: {{ .Values.global.eurekaServerURL }}
+  SPRING_DATASOURCE_URL: {{ .Values.global.dataSourceUrl }}
+  SPRING_DATASOURCE_USERNAME: {{ .Values.global.dataSourceUser }}
+  SPRING_DATASOURCE_PASSWORD: {{ .Values.global.dataSourcePassword }}
+  SPRING_R2DBC_URL: {{ .Values.global.r2dbcSourceUrl }}
+  SPRING_R2DBC_USERNAME: {{ .Values.global.r2dbcSourceUser }}
+  SPRING_R2DBC_PASSWORD: {{ .Values.global.r2dbcSourcePassword }}
+{{- end -}}

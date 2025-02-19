@@ -1,0 +1,6 @@
+dependencies:
+- name: arx-common
+  repository: file://../../arx-common
+  version: 0.1.0
+digest: sha256:fac963929823485c601b0012ec51b9120cbf67d060553381a76d26b33275131c
+generated: "2025-02-19T00:13:21.5909133+05:30"

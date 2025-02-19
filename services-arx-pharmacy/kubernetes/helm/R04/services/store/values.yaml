@@ -1,0 +1,24 @@
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+deploymentName: store-service-deployment
+serviceName: store-service
+appLabel: store-service
+appName: store-service
+
+replicaCount: 1
+
+image:
+  repository: activerx-pharmacy/store-service
+  tag: R04
+
+containerPort: 8031
+
+service:
+  type: ClusterIP
+  port: 8031
+  targetPort: 8031
+
+appname_enabled: true
+profile_enabled: true
+eureka_enabled: true

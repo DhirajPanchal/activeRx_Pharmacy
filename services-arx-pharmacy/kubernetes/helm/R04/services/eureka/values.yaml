@@ -1,0 +1,24 @@
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+deploymentName: eureka-server-deployment
+serviceName: eureka-server
+appLabel: eureka-server
+appName: eureka-server
+
+replicaCount: 1
+
+image:
+  repository: activerx-pharmacy/eureka-server
+  tag: R04
+
+containerPort: 8021
+
+service:
+  type: ClusterIP
+  port: 8021
+  targetPort: 8021
+
+appname_enabled: true
+profile_enabled: true
+eureka_enabled: false
